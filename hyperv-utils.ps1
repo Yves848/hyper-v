@@ -28,4 +28,22 @@ function Get-VMIP {
   return $vmIP
 }
 
+function Update-Hosts {
+  [vmip[]]$IPS = Get-VMIP
+  $hosts = Get-Content C:\Windows\System32\drivers\etc\hosts
+  $newhosts = 'hosts2'
+  Remove-Item -Path $newhosts -ErrorAction Ignore
+  foreach($line in $hosts) {
+    if (-not ([string]$line).StartsWith('#') -and -not $line.Trim() -eq '') {
+      $ip,$name = $line -split " "
+      Write-Host ('Name : {0} IP : {1}' -f ($name,$ip))
+      $index = $IPS.IndexOf($name)
+
+    }
+    $line | Out-File $newhosts -Append
+  }
+  
+}
+
+Update-Hosts
 Get-VMIP
