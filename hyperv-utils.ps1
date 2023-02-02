@@ -25,7 +25,7 @@ function Get-VMIP {
     $vmIP = [vmIp]::new($name,$ip)
     $ips += $vmIP
   }
-  return $vmIP
+  return $ips
 }
 
 function Update-Hosts {
@@ -45,5 +45,5 @@ function Update-Hosts {
   
 }
 
-Update-Hosts
+#Update-Hosts
 Get-VMIP
